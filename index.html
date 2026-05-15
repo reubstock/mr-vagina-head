@@ -329,8 +329,8 @@
     flex: 1 1 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, minmax(0, 1fr));
-    gap: 0.35rem;
+    grid-template-rows: repeat(3, minmax(100px, 1fr));
+    gap: 0.4rem;
     min-height: 0;
   }
   .head-option {
@@ -437,7 +437,10 @@
   }
 
   .head-option .head-disc.face-head {
-    /* sizing handled in JS so it's always a perfect square circle in the cell */
+    /* JS sets width; aspect-ratio guarantees height = width so the disc
+       can never be an oval no matter what the grid track does. */
+    aspect-ratio: 1 / 1;
+    flex: 0 0 auto;
     transition: box-shadow 0.2s, transform 0.2s;
   }
   @media (hover: hover) {
@@ -1446,11 +1449,13 @@
       const cellW = opt.clientWidth;
       const cellH = opt.clientHeight;
       const price = opt.querySelector('.price');
-      const priceH = price ? price.offsetHeight + 8 : 0;
-      const avail = Math.max(40, Math.min(cellW - 4, cellH - priceH - 4));
+      const priceH = price ? price.offsetHeight + 12 : 32;
+      // Always square. aspect-ratio:1 in CSS turns this width into a matching height.
+      const avail = Math.max(60, Math.min(cellW - 8, cellH - priceH - 6));
       const disc = opt.querySelector('.head-disc');
       disc.style.width  = avail + 'px';
-      disc.style.height = avail + 'px';
+      disc.style.height = '';            // let aspect-ratio drive the height
+      disc.style.maxHeight = avail + 'px';
     });
   }
 
