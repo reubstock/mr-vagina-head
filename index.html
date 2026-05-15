@@ -973,13 +973,39 @@
     -webkit-backdrop-filter: blur(8px);
   }
   .now-playing.show { transform: translateY(0); }
-  .np-icon {
+  /* Pause / play toggle button */
+  .np-toggle {
     flex: 0 0 auto;
-    font-size: 1.2rem;
-    color: #ffb5cc;
-    animation: bounce 0.6s ease-in-out infinite alternate;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #ffe45a, #f5b922);
+    border: 2.5px solid #1a1a1a;
+    color: #1a1a1a;
+    font-family: 'Nunito', -apple-system, sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #1a1a1a;
+    transition: transform 0.15s, box-shadow 0.15s;
+    padding: 0;
+    line-height: 1;
   }
-  @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-4px); } }
+  .np-toggle:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 #1a1a1a;
+  }
+  @media (hover: hover) {
+    .np-toggle:hover { transform: translateY(-1px); box-shadow: 0 4px 0 #1a1a1a; }
+  }
+  .np-toggle .pause-glyph,
+  .np-toggle .play-glyph { line-height: 1; pointer-events: none; }
+  .np-toggle .play-glyph { display: none; margin-left: 2px; }
+  .now-playing.paused .np-toggle .pause-glyph { display: none; }
+  .now-playing.paused .np-toggle .play-glyph { display: inline-block; }
   .np-text { flex: 1 1 auto; min-width: 0; overflow: hidden; }
   .np-title {
     font-family: 'Nunito', -apple-system, 'SF Pro Rounded', BlinkMacSystemFont, 'Avenir Next', 'Helvetica Neue', sans-serif;
@@ -1004,7 +1030,11 @@
     height: 100%; width: 0%;
     background: linear-gradient(90deg, #ffb5cc, #ff9e3a);
     box-shadow: 0 0 8px rgba(240, 198, 116, 0.6);
+    animation-fill-mode: forwards;
   }
+  .np-bar.running { animation: np-progress var(--clip-len, 30s) linear forwards; }
+  .now-playing.paused .np-bar { animation-play-state: paused; }
+  @keyframes np-progress { from { width: 0%; } to { width: 100%; } }
   @media (min-width: 600px) { .np-progress { flex: 0 0 160px; } }
 
   /* ============================================================
@@ -1841,7 +1871,10 @@
 </div>
 
 <div class="now-playing" id="nowPlaying">
-  <div class="np-icon">♪</div>
+  <button class="np-toggle" id="npToggle" aria-label="Pause music" type="button">
+    <span class="pause-glyph" aria-hidden="true">❚❚</span>
+    <span class="play-glyph"  aria-hidden="true">▶</span>
+  </button>
   <div class="np-text">
     <div class="np-title" id="npTitle">—</div>
     <div class="np-artist" id="npArtist">—</div>
@@ -2070,6 +2103,12 @@
             } else {
               hideNowPlaying();
             }
+          } else if (e.data === 1) {
+            // playing
+            setPausedUI(false);
+          } else if (e.data === 2) {
+            // paused
+            setPausedUI(true);
           }
         }
       }
@@ -2128,25 +2167,45 @@
     npTitle.textContent = song.title;
     npArtist.textContent = song.artist;
     npEl.classList.add('show');
+    npEl.classList.remove('paused');
     document.body.classList.add('np-active');
     const progressContainer = npBar.parentElement;
+    // Reset animation
+    npBar.classList.remove('running');
+    npBar.style.animation = 'none';
+    npBar.style.width = '0%';
+    void npBar.offsetWidth;
+    npBar.style.animation = '';
     if (duration) {
       progressContainer.style.opacity = '1';
-      npBar.style.transition = 'none';
-      npBar.style.width = '0%';
-      void npBar.offsetWidth;
-      npBar.style.transition = `width ${duration}s linear`;
-      npBar.style.width = '100%';
+      npBar.style.setProperty('--clip-len', duration + 's');
+      npBar.classList.add('running');
     } else {
-      // Shop BGM — no fixed duration, fade the progress bar away
       progressContainer.style.opacity = '0.25';
-      npBar.style.transition = 'none';
-      npBar.style.width = '0%';
     }
   }
   function hideNowPlaying() {
     npEl.classList.remove('show');
+    npEl.classList.remove('paused');
     document.body.classList.remove('np-active');
+  }
+
+  // Pause / play toggle
+  const npToggle = document.getElementById('npToggle');
+  npToggle.addEventListener('click', () => {
+    if (!ytPlayer) return;
+    const isPaused = npEl.classList.contains('paused');
+    try {
+      if (isPaused) {
+        ytPlayer.playVideo && ytPlayer.playVideo();
+      } else {
+        ytPlayer.pauseVideo && ytPlayer.pauseVideo();
+      }
+    } catch(_) {}
+  });
+  function setPausedUI(paused) {
+    npEl.classList.toggle('paused', paused);
+    npToggle.setAttribute('aria-label', paused ? 'Play music' : 'Pause music');
   }
 
   /* ---------- Choose / walk ---------- */
