@@ -168,7 +168,8 @@
     .haberdashery .legs::before, .haberdashery .legs::after { width: 6px; }
     .haberdashery .tie-rack { display: none; }
     .collection { padding: 0.4rem 0.35rem; border-width: 3px; border-radius: 16px; box-shadow: 0 4px 0 #1a1a1a, 0 8px 16px rgba(0,0,0,0.25); }
-    .head-grid { gap: 0.3rem 0.25rem; grid-template-rows: repeat(3, minmax(78px, 1fr)); }
+    .head-grid { gap: 0.3rem 0.25rem; grid-template-rows: repeat(3, minmax(92px, 1fr)); }
+    .head-option .name { font-size: 0.55rem; margin-top: 0.12rem; }
     .head-option { padding: 0.2rem 0.1rem 0.22rem; border-width: 2.5px; border-radius: 12px; box-shadow: 0 2px 0 #1a1a1a; }
     .head-option .head-disc.face-head { width: clamp(40px, 14vw, 64px); }
     .head-option .price {
@@ -194,7 +195,8 @@
   @media (max-width: 360px) {
     .shop-layout { padding-top: calc(env(safe-area-inset-top, 0px) + 2.3rem); }
     #title-bar h1 { font-size: clamp(1.5rem, 9.5vw, 2rem); }
-    .head-grid { grid-template-rows: repeat(3, minmax(70px, 1fr)); }
+    .head-grid { grid-template-rows: repeat(3, minmax(84px, 1fr)); }
+    .head-option .name { font-size: 0.5rem; }
     .head-option .head-disc.face-head { width: clamp(36px, 12vw, 54px); }
     .head-option .price { font-size: 0.55rem; }
     .hat { width: 28px; height: 28px; }
@@ -665,7 +667,7 @@
     flex: 1 1 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, minmax(88px, 1fr));
+    grid-template-rows: repeat(3, minmax(104px, 1fr));
     gap: 0.4rem 0.4rem;
     min-height: 0;
   }
@@ -834,9 +836,28 @@
     50%      { box-shadow: 0 0 30px rgba(255, 220, 140, 1),   inset 0 -8px 14px rgba(0,0,0,0.18); }
   }
 
+  /* 1-2 word boutique name between head and price */
+  .head-option .name {
+    margin-top: 0.16rem;
+    font-family: 'Nunito', -apple-system, 'SF Pro Rounded', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: clamp(0.55rem, 1.65vw, 0.74rem);
+    color: #1a1a1a;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+    text-align: center;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 0 0 auto;
+  }
+  .head-option.chosen .name { color: #d04a7a; }
+
   /* Chunky cartoon price tag below each head */
   .head-option .price {
-    margin-top: 0.22rem;
+    margin-top: 0.1rem;
     background: linear-gradient(180deg, #ffe45a 0%, #f5b922 100%);
     color: #1a1a1a;
     font-family: 'Nunito', -apple-system, 'SF Pro Rounded', sans-serif;
@@ -1925,6 +1946,18 @@
     '$445', '$399', '$425',
     '$19',  '$5',   '$14'
   ];
+  // Snappy boutique names — 1-2 words per head, in TYPES order.
+  const NAMES = [
+    'The Maverick',     // asymmetrical inner
+    'The Smirk',        // curved outer
+    'The Whisper',      // small, open outer
+    'The Statement',    // prominent inner
+    'The Curtain',      // long, dangling inner
+    'The Locket',       // small, closed outer
+    'The Pillow',       // prominent outer
+    'The Drape',        // long, dangling outer
+    'The Peekaboo',     // visible inner
+  ];
 
   const SONGS = [
     { title: 'Mr. Blue Sky',                artist: 'Electric Light Orchestra',   videoId: 'aQUlA8Hcv4s', start: 68 },
@@ -2001,7 +2034,7 @@
     opt.setAttribute('tabindex', '0');
     opt.setAttribute('aria-label', t.name);
     opt.title = t.name;
-    opt.setAttribute('aria-label', `${t.name}, ${PRICES[idx]}`);
+    opt.setAttribute('aria-label', `${NAMES[idx]} — ${t.name}, ${PRICES[idx]}`);
     opt.innerHTML = `
       <div class="head-disc face-head" style="--skin:${SKIN[idx]};--hair:${HAIR[idx]}">
         <div class="ear l"></div>
@@ -2009,6 +2042,7 @@
         <div class="hair"></div>
         <div class="face-img"></div>
       </div>
+      <div class="name">${NAMES[idx]}</div>
       <div class="price">${PRICES[idx]}</div>
     `;
     const choose = () => chooseHead(idx);
