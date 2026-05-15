@@ -38,11 +38,11 @@
   }
   #title-bar h1 {
     font-family: 'Nunito', -apple-system, 'SF Pro Rounded', BlinkMacSystemFont, 'Avenir Next', 'Helvetica Neue', sans-serif;
-    font-size: clamp(1.5rem, 7vw, 3.2rem);
-    letter-spacing: 0.02em;
+    font-size: clamp(2rem, 9.5vw, 4.4rem);
+    letter-spacing: 0.015em;
     color: #ffd84a;
     font-weight: 900;
-    line-height: 1.05;
+    line-height: 1.02;
     text-shadow:
       -2px -2px 0 #1a1a1a,
       2px -2px 0 #1a1a1a,
@@ -128,7 +128,7 @@
     flex-direction: column;
     z-index: 5;
     padding:
-      calc(env(safe-area-inset-top, 0px) + 2.2rem)
+      calc(env(safe-area-inset-top, 0px) + 3.4rem)
       max(0.5rem, env(safe-area-inset-right, 0px))
       max(0.4rem, env(safe-area-inset-bottom, 0px))
       max(0.5rem, env(safe-area-inset-left, 0px));
@@ -139,12 +139,12 @@
   /* ---------- Mobile tightening ---------- */
   @media (max-width: 560px) {
     .shop-layout {
-      padding: calc(env(safe-area-inset-top, 0px) + 1.9rem) 0.35rem max(0.3rem, env(safe-area-inset-bottom, 0px));
+      padding: calc(env(safe-area-inset-top, 0px) + 2.6rem) 0.35rem max(0.3rem, env(safe-area-inset-bottom, 0px));
       gap: 0.2rem;
     }
     #title-bar h1 {
-      font-size: clamp(1.2rem, 6.5vw, 1.7rem);
-      letter-spacing: 0.015em;
+      font-size: clamp(1.7rem, 9.5vw, 2.6rem);
+      letter-spacing: 0.01em;
     }
     .stage { gap: 0.3rem; padding: 0 0.1rem; }
     .shopkeeper { width: 44px; }
@@ -192,7 +192,8 @@
   }
   /* Tiny phones (≤360px) — even tighter */
   @media (max-width: 360px) {
-    .shop-layout { padding-top: calc(env(safe-area-inset-top, 0px) + 1.6rem); }
+    .shop-layout { padding-top: calc(env(safe-area-inset-top, 0px) + 2.3rem); }
+    #title-bar h1 { font-size: clamp(1.5rem, 9.5vw, 2rem); }
     .head-grid { grid-template-rows: repeat(3, minmax(70px, 1fr)); }
     .head-option .head-disc.face-head { width: clamp(36px, 12vw, 54px); }
     .head-option .price { font-size: 0.55rem; }
