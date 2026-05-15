@@ -128,11 +128,11 @@
     flex-direction: column;
     z-index: 5;
     padding:
-      calc(env(safe-area-inset-top, 0px) + 2.7rem)
+      calc(env(safe-area-inset-top, 0px) + 2.2rem)
       max(0.5rem, env(safe-area-inset-right, 0px))
       max(0.4rem, env(safe-area-inset-bottom, 0px))
       max(0.5rem, env(safe-area-inset-left, 0px));
-    gap: 0.3rem;
+    gap: 0.25rem;
   }
   body.np-active .shop-layout { padding-bottom: 78px; }
 
@@ -645,15 +645,15 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    padding: 0.4rem 0.2rem 0.35rem;
+    padding: 0.25rem 0.15rem 0.3rem;
     background: #ffffff;
     border: 3px solid #1a1a1a;
-    border-radius: 16px;
+    border-radius: 14px;
     transition: transform 0.15s, box-shadow 0.2s;
     overflow: hidden;
     min-height: 0;
     min-width: 0;
-    box-shadow: 0 4px 0 #1a1a1a;
+    box-shadow: 0 3px 0 #1a1a1a;
     -webkit-tap-highlight-color: rgba(255, 122, 168, 0.2);
   }
   .head-option:active {
@@ -784,7 +784,7 @@
   .head-option .head-disc.face-head {
     /* Predictable, viewport-driven disc size that doesn't depend on cell
        measurements. aspect-ratio locks it to a perfect circle. */
-    width: clamp(48px, 10vmin, 88px);
+    width: clamp(42px, 8.8vmin, 76px);
     height: auto;
     aspect-ratio: 1 / 1;
     flex: 0 0 auto;
@@ -806,17 +806,17 @@
 
   /* Chunky cartoon price tag below each head */
   .head-option .price {
-    margin-top: 0.4rem;
+    margin-top: 0.22rem;
     background: linear-gradient(180deg, #ffe45a 0%, #f5b922 100%);
     color: #1a1a1a;
     font-family: 'Nunito', -apple-system, 'SF Pro Rounded', sans-serif;
     font-weight: 900;
-    font-size: clamp(0.72rem, 2.2vw, 0.95rem);
-    padding: 0.2rem 0.7rem;
-    border: 2.5px solid #1a1a1a;
+    font-size: clamp(0.62rem, 1.9vw, 0.82rem);
+    padding: 0.1rem 0.55rem;
+    border: 2px solid #1a1a1a;
     border-radius: 999px;
     letter-spacing: 0.02em;
-    box-shadow: 0 3px 0 #1a1a1a;
+    box-shadow: 0 2px 0 #1a1a1a;
     white-space: nowrap;
     flex: 0 0 auto;
     line-height: 1.2;
