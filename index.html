@@ -635,7 +635,7 @@
     flex: 1 1 auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(110px, 1fr));
     gap: 0.6rem 0.5rem;
     min-height: 0;
   }
@@ -654,7 +654,6 @@
     min-height: 0;
     min-width: 0;
     box-shadow: 0 4px 0 #1a1a1a;
-    container-type: size;
     -webkit-tap-highlight-color: rgba(255, 122, 168, 0.2);
   }
   .head-option:active {
@@ -779,14 +778,12 @@
   }
 
   .head-option .head-disc.face-head {
-    /* CSS-only sizing: the disc is always a square whose side is the
-       smaller of (cell width minus a little margin) and (cell height
-       minus space for the price tag). aspect-ratio locks the shape. */
-    width: min(94cqw, calc(100cqh - 40px));
+    /* Predictable, viewport-driven disc size that doesn't depend on cell
+       measurements. aspect-ratio locks it to a perfect circle. */
+    width: clamp(56px, 13vmin, 110px);
     height: auto;
     aspect-ratio: 1 / 1;
     flex: 0 0 auto;
-    max-width: 100%;
     transition: box-shadow 0.2s, transform 0.2s;
   }
   @media (hover: hover) {
