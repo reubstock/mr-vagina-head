@@ -139,39 +139,68 @@
   /* ---------- Mobile tightening ---------- */
   @media (max-width: 560px) {
     .shop-layout {
-      padding-top: calc(env(safe-area-inset-top, 0px) + 2.6rem);
-      gap: 0.35rem;
+      padding: calc(env(safe-area-inset-top, 0px) + 1.9rem) 0.35rem max(0.3rem, env(safe-area-inset-bottom, 0px));
+      gap: 0.2rem;
     }
-    .stage { gap: 0.35rem; padding: 0; }
-    .shopkeeper { width: 46px; }
+    #title-bar h1 {
+      font-size: clamp(1.2rem, 6.5vw, 1.7rem);
+      letter-spacing: 0.015em;
+    }
+    .stage { gap: 0.3rem; padding: 0 0.1rem; }
+    .shopkeeper { width: 44px; }
     .speech {
-      font-size: 0.72rem;
-      padding: 0.4rem 0.6rem;
-      max-width: 70%;
-      min-height: 2.2em;
-      margin-bottom: 4%;
+      font-size: 0.7rem;
+      padding: 0.35rem 0.55rem;
+      max-width: 72%;
+      min-height: 2em;
+      margin-bottom: 3%;
     }
     .sign-row { padding: 0; }
-    .sign { padding: 0.4rem 1rem; border-width: 3px; }
-    .sign h2 { font-size: 1.05rem; }
+    .sign { padding: 0.3rem 0.9rem; border-width: 3px; border-radius: 16px; }
+    .sign h2 { font-size: 1rem; }
     .sign .tag { display: none; }
-    .collection { padding: 0.5rem 0.45rem; border-width: 3px; border-radius: 18px; }
-    .head-grid { gap: 0.4rem 0.35rem; }
-    .head-option { padding: 0.3rem 0.15rem; border-width: 2.5px; }
+    .haberdashery { padding: 0 0.2rem; max-width: 100%; }
+    .haberdashery .hab-shelf { padding: 2px 6px 2px; gap: 4px; }
+    .hat { width: 32px; height: 32px; }
+    .haberdashery .hat-price { font-size: 0.52rem; padding: 0.06rem 0.36rem; margin-top: 1px; }
+    .haberdashery .tabletop { height: 7px; }
+    .haberdashery .legs { height: 10px; }
+    .haberdashery .legs::before, .haberdashery .legs::after { width: 6px; }
+    .haberdashery .tie-rack { display: none; }
+    .collection { padding: 0.4rem 0.35rem; border-width: 3px; border-radius: 16px; box-shadow: 0 4px 0 #1a1a1a, 0 8px 16px rgba(0,0,0,0.25); }
+    .head-grid { gap: 0.3rem 0.25rem; grid-template-rows: repeat(3, minmax(78px, 1fr)); }
+    .head-option { padding: 0.2rem 0.1rem 0.22rem; border-width: 2.5px; border-radius: 12px; box-shadow: 0 2px 0 #1a1a1a; }
+    .head-option .head-disc.face-head { width: clamp(40px, 14vw, 64px); }
     .head-option .price {
-      font-size: 0.7rem;
-      padding: 0.12rem 0.5rem;
-      margin-top: 0.3rem;
+      font-size: 0.6rem;
+      padding: 0.08rem 0.45rem;
+      margin-top: 0.18rem;
+      border-width: 2px;
+      box-shadow: 0 2px 0 #1a1a1a;
     }
-    .shop-footer { gap: 0.4rem; padding: 0.2rem 0.15rem 0; }
-    .customer-bust .face-head { width: 76px; }
-    .customer-bust .cust-suit { width: 100px; }
-    .customer-bust .you-label { font-size: 0.6rem; }
+    .shop-footer { gap: 0.35rem; padding: 0.1rem 0.15rem 0; }
+    .customer-bust { padding-top: 0.5rem; }
+    .customer-bust .face-head { width: 64px; }
+    .customer-bust .cust-suit { width: 88px; }
+    .customer-bust .you-label { font-size: 0.55rem; }
     .walk-btn {
-      padding: 0.7rem 1rem;
-      font-size: 0.78rem;
-      margin-bottom: 0.6rem;
+      padding: 0.55rem 0.9rem;
+      font-size: 0.74rem;
+      margin-bottom: 0.3rem;
+      box-shadow: 0 4px 0 #1a1a1a, 0 6px 12px rgba(0,0,0,0.3);
     }
+  }
+  /* Tiny phones (≤360px) — even tighter */
+  @media (max-width: 360px) {
+    .shop-layout { padding-top: calc(env(safe-area-inset-top, 0px) + 1.6rem); }
+    .head-grid { grid-template-rows: repeat(3, minmax(70px, 1fr)); }
+    .head-option .head-disc.face-head { width: clamp(36px, 12vw, 54px); }
+    .head-option .price { font-size: 0.55rem; }
+    .hat { width: 28px; height: 28px; }
+    .haberdashery .hat-price { font-size: 0.48rem; }
+    .customer-bust .face-head { width: 58px; }
+    .customer-bust .cust-suit { width: 80px; }
+    .walk-btn { padding: 0.5rem 0.75rem; font-size: 0.7rem; }
   }
 
   /* ---------- Shopkeeper + speech ---------- */
@@ -1339,11 +1368,28 @@
   }
   @media (max-width: 480px) {
     .npc { width: 44px; }
-    .npc .body { height: 60px; }
-    .npc .head { width: 26px; }
-    .npc .speech-npc { font-size: 0.62rem; padding: 0.25rem 0.5rem; top: -46px; }
-    .npc.left  { left: 4%; }
-    .npc.right { right: 4%; }
+    .npc .body { height: 60px; border-width: 2.5px; }
+    .npc .head { width: 28px; border-width: 2.5px; }
+    .npc .speech-npc {
+      font-size: 0.6rem;
+      padding: 0.22rem 0.48rem;
+      top: -42px;
+      border-width: 2.5px;
+      box-shadow: 0 3px 0 #1a1a1a;
+    }
+    .npc.left  { left: 3%; }
+    .npc.right { right: 3%; }
+    /* Cloud puffs scaled down */
+    .cloud.c1, .cloud.c2, .cloud.c3 {
+      filter:
+        drop-shadow(2px 0 0 #1a1a1a)
+        drop-shadow(-2px 0 0 #1a1a1a)
+        drop-shadow(0 2px 0 #1a1a1a)
+        drop-shadow(0 -2px 0 #1a1a1a)
+        drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+    }
+    .cloud.c2 { top: 22%; left: 36%; }
+    .cloud.c3 { top: 4%; right: 18%; }
   }
   @keyframes pop {
     0%   { opacity: 0; transform: translateX(-50%) scale(0.5); }
@@ -1531,15 +1577,40 @@
 
   @media (max-width: 480px) {
     .paparazzi {
-      left: calc(50% - 88px);
-      width: 50px;
+      left: calc(50% - 80px);
+      width: 46px;
     }
-    .paparazzi .pap-body { height: 56px; }
-    .paparazzi .pap-head { bottom: 48px; }
-    .paparazzi .pap-cap { bottom: 64px; }
-    .paparazzi .camera { bottom: 36px; height: 22px; }
-    .paparazzi .flash-bulb { width: 12px; height: 12px; }
-    .paparazzi .snap { font-size: 0.6rem; right: -38%; padding: 0.18rem 0.4rem; }
+    .paparazzi .pap-body { height: 52px; }
+    .paparazzi .pap-head { bottom: 42px; }
+    .paparazzi .pap-cap { bottom: 58px; height: 12px; }
+    .paparazzi .pap-cap::after { font-size: 0.36rem; padding: 0 2px; }
+    .paparazzi .camera { bottom: 32px; height: 20px; }
+    .paparazzi .lens { width: 20px; height: 20px; right: -12px; }
+    .paparazzi .flash-bulb { width: 10px; height: 10px; top: -6px; }
+    .paparazzi .snap {
+      font-size: 0.58rem;
+      right: -34%;
+      padding: 0.16rem 0.36rem;
+      border-width: 2.5px;
+    }
+    /* Smaller, higher congrats card on phones */
+    .congrats {
+      top: calc(env(safe-area-inset-top, 0px) + 0.4rem);
+      width: min(82%, 300px);
+      padding: 0.55rem 0.8rem 0.5rem;
+      border-radius: 14px;
+      border-width: 2.5px;
+      box-shadow: 0 4px 0 #1a1a1a, 0 7px 12px rgba(0,0,0,0.28);
+    }
+    .congrats h2 { font-size: clamp(0.95rem, 4vw, 1.25rem); margin-bottom: 0.2rem; }
+    .congrats p { font-size: clamp(0.65rem, 2.4vw, 0.8rem); }
+    .replay {
+      padding: 0.3rem 0.85rem;
+      font-size: 0.62rem;
+      box-shadow: 0 2px 0 #1a1a1a, 0 4px 8px rgba(0,0,0,0.25);
+      margin-top: 0.4rem;
+      border-width: 2px;
+    }
   }
   .congrats {
     position: absolute;
