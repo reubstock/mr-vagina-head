@@ -1516,10 +1516,8 @@
           ytReady = true;
           if (pendingSong) {
             const s = pendingSong; pendingSong = null; playHeadSong(s);
-          } else if (pendingMode === 'shop' || currentScene === 'shop') {
-            pendingMode = null;
-            playShopBgm();
           }
+          // Boutique is silent — no autoplay on ready.
         },
         onError: (e) => console.warn('YT error', e && e.data),
         onStateChange: (e) => {
@@ -1558,23 +1556,12 @@
     }, (CLIP_LEN + 0.4) * 1000);
   }
 
+  // The boutique is now silent — music only kicks in when you step outside.
   function playShopBgm() {
     musicMode = 'shop';
-    if (!ytReady || !ytPlayer || !ytPlayer.loadVideoById) {
-      pendingMode = 'shop';
-      showNowPlaying(SHOP_SONG, null);
-      return;
-    }
     if (stopTimer) { clearTimeout(stopTimer); stopTimer = null; }
-    try {
-      ytPlayer.loadVideoById({
-        videoId: SHOP_SONG.videoId,
-        startSeconds: SHOP_SONG.start,
-      });
-      ytPlayer.unMute && ytPlayer.unMute();
-      ytPlayer.setVolume && ytPlayer.setVolume(100);
-    } catch (err) { console.warn('playShopBgm failed', err); }
-    showNowPlaying(SHOP_SONG, null);
+    try { ytPlayer && ytPlayer.stopVideo && ytPlayer.stopVideo(); } catch(_) {}
+    hideNowPlaying();
   }
 
   function stopSong() {
