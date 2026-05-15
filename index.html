@@ -1362,9 +1362,10 @@
     animation: pap-crouch 0.55s ease-in-out infinite;
     transform-origin: bottom right;
   }
+  /* Lean the photographer toward the dancing character on his right */
   @keyframes pap-crouch {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-3px); }
+    0%, 100% { transform: rotate(14deg) translateY(0); }
+    50%      { transform: rotate(14deg) translateY(-3px); }
   }
   .paparazzi .pap-body {
     position: absolute;
@@ -1416,38 +1417,42 @@
     border: 1px solid #0e0e12;
   }
   .paparazzi .camera {
+    /* Held up and angled right to aim at the dancing character */
     position: absolute;
-    bottom: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
+    bottom: 54px;
+    left: 26%;
+    width: 86%;
     height: 30px;
     background: linear-gradient(180deg, #2a2a2a, #0a0a0a);
     border: 2px solid #000;
-    border-radius: 4px;
+    border-radius: 4px 6px 6px 4px;
     z-index: 3;
     box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    transform: rotate(-6deg);
+    transform-origin: left center;
   }
   .paparazzi .lens {
+    /* Lens pokes out the right side of the camera toward the subject */
     position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
-    aspect-ratio: 1;
+    top: 50%;
+    right: -18px;
+    transform: translateY(-50%);
+    width: 28px;
+    height: 28px;
     background:
-      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5) 0%, transparent 30%),
+      radial-gradient(circle at 65% 30%, rgba(255,255,255,0.55) 0%, transparent 32%),
       radial-gradient(circle, #6a8aaa 0%, #1a2a3a 60%, #000 100%);
     border: 2px solid #000;
     border-radius: 50%;
     z-index: 3;
   }
   .paparazzi .flash-bulb {
+    /* Flash on top of the camera, on the lens side */
     position: absolute;
-    top: -8px;
-    right: -8px;
-    width: 16px;
-    height: 16px;
+    top: -10px;
+    right: 14%;
+    width: 14px;
+    height: 14px;
     background: radial-gradient(circle, #fff 0%, #ffd680 50%, #ff9e3a 100%);
     border: 2px solid #000;
     border-radius: 50%;
