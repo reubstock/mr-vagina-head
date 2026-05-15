@@ -690,20 +690,51 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    animation: strut 1.6s ease-in-out infinite;
+    animation: dance-bounce 0.55s ease-in-out infinite;
   }
-  @keyframes strut {
+  @keyframes dance-bounce {
     0%, 100% { transform: translateX(-50%) translateY(0); }
-    50%      { transform: translateX(-50%) translateY(-4px); }
+    50%      { transform: translateX(-50%) translateY(-9px); }
   }
   .nyc-character .face-head {
     width: clamp(80px, 22vw, 140px);
     aspect-ratio: 1;
-    animation: head-bob 1.6s ease-in-out infinite;
+    animation: head-dance 0.55s ease-in-out infinite;
+    transform-origin: bottom center;
   }
-  @keyframes head-bob {
-    0%, 100% { transform: rotate(-2deg); }
-    50%      { transform: rotate(2deg); }
+  @keyframes head-dance {
+    0%, 100% { transform: rotate(-5deg); }
+    50%      { transform: rotate(5deg); }
+  }
+  .nyc-character .body {
+    animation: body-sway 0.55s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+  @keyframes body-sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50%      { transform: rotate(3deg); }
+  }
+  .nyc-character .legs {
+    display: flex;
+    gap: 3px;
+    margin-top: -2px;
+  }
+  .nyc-character .legs .leg {
+    transform-origin: top center;
+  }
+  .nyc-character .legs .leg:nth-child(1) {
+    animation: leg-l-dance 0.55s ease-in-out infinite;
+  }
+  .nyc-character .legs .leg:nth-child(2) {
+    animation: leg-r-dance 0.55s ease-in-out infinite;
+  }
+  @keyframes leg-l-dance {
+    0%, 100% { transform: rotate(6deg) translateY(0); }
+    50%      { transform: rotate(-8deg) translateY(-4px); }
+  }
+  @keyframes leg-r-dance {
+    0%, 100% { transform: rotate(-6deg) translateY(-4px); }
+    50%      { transform: rotate(8deg) translateY(0); }
   }
   .nyc-character .neck {
     width: 22%; height: 12px;
@@ -805,24 +836,238 @@
   .npc.right .body { background: linear-gradient(180deg, #4a3a5a, #1a0a2a); }
   .npc .speech-npc {
     position: absolute;
-    top: -12px; left: 50%;
+    top: -54px; left: 50%;
     transform: translateX(-50%);
     background: #fff;
     color: #1a0e08;
     font-family: 'Georgia', serif;
-    font-size: clamp(0.6rem, 2vw, 0.85rem);
-    padding: 0.3rem 0.55rem;
+    font-size: clamp(0.65rem, 2.1vw, 0.9rem);
+    padding: 0.35rem 0.7rem;
     border: 2px solid #1a0e08;
-    border-radius: 12px;
+    border-radius: 14px;
     white-space: nowrap;
     opacity: 0;
     animation: pop 0.5s 1.2s forwards;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 8;
   }
-  @media (max-width: 480px) { .npc { display: none; } }
+  .npc .speech-npc::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 10px solid #1a0e08;
+  }
+  .npc .speech-npc::before {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 8px solid #fff;
+    z-index: 1;
+  }
+  @media (max-width: 480px) {
+    .npc { width: 44px; }
+    .npc .body { height: 60px; }
+    .npc .head { width: 26px; }
+    .npc .speech-npc { font-size: 0.62rem; padding: 0.25rem 0.5rem; top: -46px; }
+    .npc.left  { left: 4%; }
+    .npc.right { right: 4%; }
+  }
   @keyframes pop {
     0%   { opacity: 0; transform: translateX(-50%) scale(0.5); }
     70%  { opacity: 1; transform: translateX(-50%) scale(1.1); }
     100% { opacity: 1; transform: translateX(-50%) scale(1); }
+  }
+
+  /* ---------- PAPARAZZI ---------- */
+  .paparazzi {
+    position: absolute;
+    bottom: 22%;
+    left: clamp(6%, 12vw, 22%);
+    width: clamp(54px, 11vw, 90px);
+    z-index: 7;
+    pointer-events: none;
+    animation: pap-crouch 0.55s ease-in-out infinite;
+  }
+  @keyframes pap-crouch {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-3px); }
+  }
+  .paparazzi .pap-body {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 75px;
+    background: linear-gradient(180deg, #2a2a2a, #0a0a0a);
+    border: 2px solid #000;
+    border-radius: 30% 30% 6% 6% / 18% 18% 6% 6%;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+  }
+  .paparazzi .pap-head {
+    position: absolute;
+    bottom: 64px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 56%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle at 35% 35%, #f4d4b0, #b88a5c);
+    border: 2px solid #000;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  .paparazzi .pap-cap {
+    position: absolute;
+    bottom: 84px;
+    left: 14%;
+    width: 72%;
+    height: 16px;
+    background: linear-gradient(180deg, #1a1a1a, #050505);
+    border: 2px solid #000;
+    border-radius: 50% 50% 0 0 / 80% 80% 0 0;
+    z-index: 2;
+  }
+  .paparazzi .pap-cap::after {
+    /* press tag */
+    content: 'PRESS';
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #f5e8c8;
+    color: #1a0e08;
+    font-family: 'Arial Black', sans-serif;
+    font-size: 0.42rem;
+    letter-spacing: 0.1em;
+    padding: 0 3px;
+    border: 1px solid #1a0e08;
+  }
+  .paparazzi .camera {
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 30px;
+    background: linear-gradient(180deg, #2a2a2a, #0a0a0a);
+    border: 2px solid #000;
+    border-radius: 4px;
+    z-index: 3;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+  }
+  .paparazzi .lens {
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    aspect-ratio: 1;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5) 0%, transparent 30%),
+      radial-gradient(circle, #6a8aaa 0%, #1a2a3a 60%, #000 100%);
+    border: 2px solid #000;
+    border-radius: 50%;
+    z-index: 3;
+  }
+  .paparazzi .flash-bulb {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 16px;
+    height: 16px;
+    background: radial-gradient(circle, #fff 0%, #ffd680 50%, #ff9e3a 100%);
+    border: 2px solid #000;
+    border-radius: 50%;
+    z-index: 4;
+    animation: bulb-flash 4s infinite;
+  }
+  @keyframes bulb-flash {
+    0%, 88% {
+      box-shadow: 0 0 4px rgba(255, 220, 130, 0.4);
+      transform: scale(1);
+    }
+    89%, 91% {
+      box-shadow: 0 0 28px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 240, 180, 0.95);
+      transform: scale(1.5);
+    }
+    92%, 95% {
+      box-shadow: 0 0 6px rgba(255, 220, 130, 0.5);
+      transform: scale(1);
+    }
+    96%, 98% {
+      box-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 240, 180, 0.95);
+      transform: scale(1.5);
+    }
+    99%, 100% {
+      box-shadow: 0 0 4px rgba(255, 220, 130, 0.4);
+      transform: scale(1);
+    }
+  }
+  .paparazzi .snap {
+    position: absolute;
+    top: 0;
+    right: -30%;
+    background: #ffea4a;
+    color: #1a0e08;
+    font-family: 'Arial Black', 'Helvetica', sans-serif;
+    font-weight: 900;
+    font-size: clamp(0.7rem, 2.2vw, 0.95rem);
+    padding: 0.25rem 0.55rem;
+    border: 3px solid #1a0e08;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    transform: rotate(-10deg) scale(0);
+    box-shadow: 3px 4px 0 rgba(0,0,0,0.4);
+    animation: snap-pop 4s infinite;
+    z-index: 9;
+  }
+  @keyframes snap-pop {
+    0%, 87% { transform: rotate(-10deg) scale(0); }
+    89%     { transform: rotate(-10deg) scale(1.2); }
+    91%     { transform: rotate(-8deg)  scale(1); }
+    95%     { transform: rotate(-8deg)  scale(1); }
+    97%     { transform: rotate(-10deg) scale(0); }
+    100%    { transform: rotate(-10deg) scale(0); }
+  }
+
+  /* Full-screen paparazzi flash */
+  .pap-flash-overlay {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 50;
+    animation: screen-flash 4s infinite;
+    mix-blend-mode: screen;
+  }
+  @keyframes screen-flash {
+    0%, 88% { opacity: 0; }
+    89%, 90% { opacity: 0.85; }
+    91%     { opacity: 0.2; }
+    92%, 95% { opacity: 0; }
+    96%, 97% { opacity: 0.7; }
+    98%     { opacity: 0.1; }
+    99%, 100% { opacity: 0; }
+  }
+
+  @media (max-width: 480px) {
+    .paparazzi { left: 4%; width: 50px; }
+    .paparazzi .pap-body { height: 56px; }
+    .paparazzi .pap-head { bottom: 48px; }
+    .paparazzi .pap-cap { bottom: 64px; }
+    .paparazzi .camera { bottom: 36px; height: 22px; }
+    .paparazzi .flash-bulb { width: 12px; height: 12px; }
+    .paparazzi .snap { font-size: 0.6rem; right: -38%; padding: 0.18rem 0.4rem; }
   }
   .congrats {
     position: absolute;
@@ -955,6 +1200,21 @@
     <div class="head"><div class="mouth"></div></div>
     <div class="body"></div>
   </div>
+
+  <!-- Paparazzi crouched on the sidewalk, snapping photos -->
+  <div class="paparazzi" aria-hidden="true">
+    <div class="snap">SNAP!</div>
+    <div class="pap-cap"></div>
+    <div class="pap-head"></div>
+    <div class="camera">
+      <div class="lens"></div>
+      <div class="flash-bulb"></div>
+    </div>
+    <div class="pap-body"></div>
+  </div>
+
+  <!-- Full-screen flash overlay -->
+  <div class="pap-flash-overlay" aria-hidden="true"></div>
 
   <div class="nyc-character" id="nycPlayer">
     <div class="face-head" id="nycHead">
