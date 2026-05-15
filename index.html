@@ -975,21 +975,60 @@
      NYC SCENE
      ============================================================ */
   #nyc-scene {
-    background: linear-gradient(180deg,
-      #ff7e5f 0%, #feb47b 22%, #ffd89b 42%,
-      #f6c08b 55%, #c9a17a 75%, #6b4a3a 100%);
+    background:
+      radial-gradient(ellipse at 85% 18%, rgba(255, 245, 200, 0.6), transparent 50%),
+      linear-gradient(180deg, #5cb3e0 0%, #8acce8 55%, #b8dff0 78%, #c08850 88%, #8a5e34 100%);
   }
   #nyc-scene::before {
+    /* big cartoon sun */
     content: '';
     position: absolute;
-    top: 10%; left: 50%;
-    transform: translateX(-50%);
-    width: clamp(120px, 30vw, 240px);
-    height: clamp(120px, 30vw, 240px);
-    background: radial-gradient(circle, rgba(255, 240, 200, 0.9) 0%, rgba(255, 200, 130, 0.4) 40%, transparent 70%);
+    top: 6%; right: 8%;
+    width: clamp(60px, 11vw, 110px);
+    height: clamp(60px, 11vw, 110px);
+    background: radial-gradient(circle, #ffe45a 60%, #f5b922 100%);
+    border: 3px solid #1a1a1a;
     border-radius: 50%;
+    box-shadow: 0 4px 0 #1a1a1a, 0 0 24px rgba(255, 220, 80, 0.6);
     pointer-events: none;
   }
+
+  /* Puffy cartoon clouds */
+  .cloud {
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+    filter:
+      drop-shadow(2.5px 0 0 #1a1a1a)
+      drop-shadow(-2.5px 0 0 #1a1a1a)
+      drop-shadow(0 2.5px 0 #1a1a1a)
+      drop-shadow(0 -2.5px 0 #1a1a1a)
+      drop-shadow(0 6px 8px rgba(0,0,0,0.18));
+  }
+  .cloud .puff {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 50%;
+  }
+  .cloud.c1 {
+    top: 10%; left: 6%;
+    width: clamp(80px, 16vw, 140px);
+    height: clamp(34px, 6vw, 52px);
+  }
+  .cloud.c2 {
+    top: 18%; left: 38%;
+    width: clamp(60px, 12vw, 110px);
+    height: clamp(28px, 5vw, 42px);
+  }
+  .cloud.c3 {
+    top: 6%; right: 24%;
+    width: clamp(70px, 14vw, 120px);
+    height: clamp(30px, 5.5vw, 46px);
+  }
+  .cloud .puff:nth-child(1) { left: 0;   bottom: 0; width: 50%; height: 80%; }
+  .cloud .puff:nth-child(2) { left: 25%; bottom: 25%; width: 55%; height: 100%; }
+  .cloud .puff:nth-child(3) { right: 0;  bottom: 0; width: 50%; height: 75%; }
+
   .skyline {
     position: absolute;
     bottom: 24%; left: 0; right: 0;
@@ -999,87 +1038,103 @@
   .building {
     position: absolute;
     bottom: 0;
-    background-color: #14142a;
-    border-top: 2px solid #000;
-    box-shadow: inset -16px 0 26px rgba(0,0,0,0.55), inset 0 8px 0 rgba(255, 200, 140, 0.12);
+    background-color: #2864b3;
+    border: 3px solid #1a1a1a;
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    box-shadow: inset 0 -4px 0 rgba(0,0,0,0.25);
   }
+  /* Vary building colors for cartoon variety */
+  .building:nth-child(3n) { background-color: #d9302a; }
+  .building:nth-child(3n+1) { background-color: #2864b3; }
+  .building:nth-child(3n+2) { background-color: #f5b922; }
   .building::before {
     content: '';
     position: absolute;
-    inset: 16px 6px 10px 6px;
-    background-image: radial-gradient(circle at 50% 50%, rgba(255, 220, 130, 0.85) 1.4px, transparent 2px);
-    background-size: 12px 20px;
+    inset: 14px 8px 8px 8px;
+    background-image: radial-gradient(circle at 50% 50%, #1a1a1a 2.5px, transparent 3px);
+    background-size: 20px 28px;
     opacity: 0.85;
   }
-  .building.empire { background-color: #161630; }
+  .building.empire { background-color: #f5b922; }
   .building.empire::after {
     content: '';
     position: absolute;
-    top: -50px; left: 50%;
+    top: -42px; left: 50%;
     transform: translateX(-50%);
     width: 0; height: 0;
-    border-left: 14px solid transparent;
-    border-right: 14px solid transparent;
-    border-bottom: 50px solid #161630;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 42px solid #f5b922;
+    filter: drop-shadow(-2px 0 0 #1a1a1a) drop-shadow(2px 0 0 #1a1a1a) drop-shadow(0 -2px 0 #1a1a1a);
   }
   .antenna {
     position: absolute;
-    top: -78px; left: 50%;
-    width: 3px; height: 28px;
-    background: #14142a;
+    top: -70px; left: 50%;
+    width: 4px; height: 28px;
+    background: #1a1a1a;
     transform: translateX(-50%);
   }
   .liberty {
     position: absolute;
     bottom: 24%; left: 4%;
-    width: clamp(40px, 7vw, 70px);
-    height: clamp(80px, 14vw, 140px);
+    width: clamp(44px, 8vw, 76px);
+    height: clamp(86px, 15vw, 150px);
     pointer-events: none;
-    opacity: 0.85;
+    filter:
+      drop-shadow(2px 0 0 #1a1a1a)
+      drop-shadow(-2px 0 0 #1a1a1a)
+      drop-shadow(0 2px 0 #1a1a1a)
+      drop-shadow(0 -2px 0 #1a1a1a);
   }
-  .liberty .body { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 40%; height: 55%; background: #4a6a55; clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%); }
-  .liberty .head { position: absolute; bottom: 56%; left: 50%; transform: translateX(-50%); width: 28%; height: 14%; background: #4a6a55; border-radius: 50%; }
+  .liberty .body { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 46%; height: 55%; background: #5da085; clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%); }
+  .liberty .head { position: absolute; bottom: 56%; left: 50%; transform: translateX(-50%); width: 30%; height: 14%; background: #5da085; border-radius: 50%; }
   .liberty .crown {
     position: absolute; bottom: 70%; left: 50%;
     transform: translateX(-50%);
-    width: 50%; height: 12%;
+    width: 52%; height: 14%;
     background: conic-gradient(from -30deg at 50% 100%,
-      transparent 0, #4a6a55 10deg, transparent 20deg,
-      transparent 30deg, #4a6a55 40deg, transparent 50deg,
-      transparent 60deg, #4a6a55 70deg, transparent 80deg,
-      transparent 90deg, #4a6a55 100deg, transparent 110deg,
-      transparent 120deg, #4a6a55 130deg, transparent 140deg);
+      transparent 0, #5da085 10deg, transparent 20deg,
+      transparent 30deg, #5da085 40deg, transparent 50deg,
+      transparent 60deg, #5da085 70deg, transparent 80deg,
+      transparent 90deg, #5da085 100deg, transparent 110deg,
+      transparent 120deg, #5da085 130deg, transparent 140deg);
   }
-  .liberty .torch { position: absolute; bottom: 72%; right: -6%; width: 12%; height: 24%; background: #4a6a55; }
+  .liberty .torch { position: absolute; bottom: 72%; right: -6%; width: 14%; height: 26%; background: #5da085; }
   .liberty .flame {
     position: absolute; bottom: 92%; right: -10%;
-    width: 22%; height: 14%;
-    background: radial-gradient(ellipse, #ffd680 0%, #ff9e3a 70%, transparent 100%);
+    width: 24%; height: 16%;
+    background: radial-gradient(ellipse, #ffd84a 35%, #ff5a4a 95%);
     border-radius: 50%;
-    box-shadow: 0 0 12px rgba(255, 180, 80, 0.7);
   }
   .sidewalk {
     position: absolute;
     bottom: 18%; left: 0; right: 0;
     height: 6%;
     background:
-      repeating-linear-gradient(90deg, #b5a591 0, #b5a591 40px, #9c8c78 40px, #9c8c78 80px),
-      linear-gradient(180deg, #c0b09a, #8a7a64);
-    border-top: 3px solid #5a4a38;
-    border-bottom: 3px solid #3a2a18;
+      repeating-linear-gradient(90deg,
+        #e8d5b0 0, #e8d5b0 56px,
+        #1a1a1a 56px, #1a1a1a 60px,
+        #d4bf94 60px, #d4bf94 116px,
+        #1a1a1a 116px, #1a1a1a 120px),
+      linear-gradient(180deg, #e8d5b0, #b8a37a);
+    border-top: 3px solid #1a1a1a;
+    border-bottom: 3px solid #1a1a1a;
   }
   .nyc-street {
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 18%;
-    background: linear-gradient(180deg, #3a3a3a 0%, #1e1e1e 100%);
+    background: linear-gradient(180deg, #4a4a4e 0%, #2a2a2e 100%);
+    border-top: 2px solid #1a1a1a;
   }
   .nyc-street::before {
     content: '';
     position: absolute;
-    top: 35%; left: 0; right: 0; height: 4px;
-    background: repeating-linear-gradient(90deg, #f5d674 0, #f5d674 30px, transparent 30px, transparent 60px);
-    box-shadow: 0 0 6px rgba(255, 220, 100, 0.4);
+    top: 38%; left: 0; right: 0; height: 8px;
+    background: repeating-linear-gradient(90deg,
+      #ffd84a 0, #ffd84a 36px,
+      transparent 36px, transparent 72px);
   }
   .nyc-character {
     position: absolute;
@@ -1199,55 +1254,58 @@
   .npc .head {
     position: relative;
     margin: 0 auto;
-    width: clamp(28px, 6vw, 42px);
+    width: clamp(30px, 6.5vw, 46px);
     aspect-ratio: 1;
-    background: radial-gradient(circle at 35% 35%, #f4d4b0, #b78850);
-    border: 2px solid #0e0e12;
+    background: radial-gradient(circle at 35% 35%, #ffd6a8, #c8915c);
+    border: 3px solid #1a1a1a;
     border-radius: 50%;
+    box-shadow: 0 3px 0 #1a1a1a;
   }
-  .npc.right .head { background: radial-gradient(circle at 35% 35%, #d4a87a, #6a4828); }
+  .npc.right .head { background: radial-gradient(circle at 35% 35%, #f0bb88, #a8754d); }
   .npc .head::before, .npc .head::after {
     content: '';
     position: absolute;
-    top: 40%;
-    width: 14%; height: 14%;
-    background: #0e0e12;
+    top: 38%;
+    width: 16%; height: 16%;
+    background: #1a1a1a;
     border-radius: 50%;
   }
-  .npc .head::before { left: 24%; }
-  .npc .head::after  { right: 24%; }
+  .npc .head::before { left: 22%; }
+  .npc .head::after  { right: 22%; }
   .npc .mouth {
     position: absolute;
     top: 62%; left: 50%;
     transform: translateX(-50%);
-    width: 22%; height: 26%;
-    background: #2a1010;
+    width: 24%; height: 28%;
+    background: #1a1a1a;
     border-radius: 50%;
   }
   .npc .body {
     margin: -2px auto 0;
-    width: 80%;
+    width: 82%;
     height: clamp(60px, 12vw, 100px);
-    background: linear-gradient(180deg, #5a4a38, #2a1a08);
-    border: 2px solid #000;
+    background: linear-gradient(180deg, #2864b3, #1d4a87);
+    border: 3px solid #1a1a1a;
     border-radius: 30% 30% 4px 4px / 14% 14% 4px 4px;
+    box-shadow: 0 3px 0 #1a1a1a;
   }
-  .npc.right .body { background: linear-gradient(180deg, #4a3a5a, #1a0a2a); }
+  .npc.right .body { background: linear-gradient(180deg, #d9302a, #a8201c); }
   .npc .speech-npc {
     position: absolute;
-    top: -54px; left: 50%;
+    top: -56px; left: 50%;
     transform: translateX(-50%);
-    background: #fff;
-    color: #0e0e12;
+    background: #ffffff;
+    color: #1a1a1a;
     font-family: 'Nunito', -apple-system, 'SF Pro Rounded', BlinkMacSystemFont, 'Avenir Next', 'Helvetica Neue', sans-serif;
-    font-size: clamp(0.65rem, 2.1vw, 0.9rem);
-    padding: 0.35rem 0.7rem;
-    border: 2px solid #0e0e12;
+    font-weight: 800;
+    font-size: clamp(0.66rem, 2.1vw, 0.9rem);
+    padding: 0.4rem 0.75rem;
+    border: 3px solid #1a1a1a;
     border-radius: 14px;
     white-space: nowrap;
     opacity: 0;
     animation: pop 0.5s 1.2s forwards;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 0 #1a1a1a;
     z-index: 8;
   }
   .npc .speech-npc::after {
@@ -1476,51 +1534,63 @@
     position: absolute;
     top: calc(env(safe-area-inset-top, 0px) + 4.4rem);
     left: 50%;
-    transform: translate(-50%, -20px) scale(0.85);
+    transform: translate(-50%, -20px) scale(0.85) rotate(-2deg);
     width: min(92%, 480px);
     text-align: center;
-    background: rgba(20, 10, 4, 0.82);
-    padding: 1.4rem 1.4rem 1.2rem;
-    border-radius: 10px;
-    border: 3px double #ffb5cc;
+    background: linear-gradient(180deg, #ffe45a 0%, #f5b922 100%);
+    padding: 1.5rem 1.4rem 1.3rem;
+    border-radius: 22px;
+    border: 4px solid #1a1a1a;
     opacity: 0;
     transition: opacity 0.7s 0.4s, transform 0.7s 0.4s;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     z-index: 10;
-    box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 40px rgba(240, 198, 116, 0.25);
+    box-shadow:
+      0 8px 0 #1a1a1a,
+      0 14px 28px rgba(0, 0, 0, 0.4);
   }
-  .congrats.show { opacity: 1; transform: translate(-50%, 0) scale(1); }
+  .congrats.show { opacity: 1; transform: translate(-50%, 0) scale(1) rotate(-2deg); }
   .congrats h2 {
     font-family: 'Nunito', -apple-system, 'SF Pro Rounded', BlinkMacSystemFont, 'Avenir Next', 'Helvetica Neue', sans-serif;
-    font-size: clamp(1.3rem, 5.5vw, 2.2rem);
-    color: #f5e8ee;
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.05em;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    font-weight: 900;
+    font-size: clamp(1.4rem, 6vw, 2.4rem);
+    color: #d9302a;
+    margin-bottom: 0.6rem;
+    letter-spacing: 0.02em;
+    text-shadow:
+      -1.5px -1.5px 0 #1a1a1a, 1.5px -1.5px 0 #1a1a1a,
+      -1.5px 1.5px 0 #1a1a1a, 1.5px 1.5px 0 #1a1a1a,
+      0 4px 0 rgba(0, 0, 0, 0.18);
   }
   .congrats p {
-    font-style: italic;
-    color: #ffb5cc;
-    font-size: clamp(0.85rem, 3vw, 1.1rem);
-    line-height: 1.45;
-    letter-spacing: 0.03em;
+    color: #1a1a1a;
+    font-weight: 700;
+    font-size: clamp(0.92rem, 3vw, 1.1rem);
+    line-height: 1.4;
+    letter-spacing: 0.01em;
   }
-  .congrats p em { color: #fff; font-style: italic; }
+  .congrats p em { color: #d9302a; font-weight: 900; font-style: normal; }
   .replay {
-    margin-top: 0.9rem;
-    background: transparent;
-    border: 1px solid #ff7aa8;
-    color: #ffb5cc;
+    margin-top: 1rem;
+    background: linear-gradient(180deg, #ff5a4a 0%, #d9302a 100%);
+    border: 3px solid #1a1a1a;
+    color: #ffffff;
     font-family: 'Nunito', -apple-system, 'SF Pro Rounded', BlinkMacSystemFont, 'Avenir Next', 'Helvetica Neue', sans-serif;
-    font-size: clamp(0.7rem, 2.4vw, 0.85rem);
-    letter-spacing: 0.18em;
-    padding: 0.55rem 1.1rem;
-    border-radius: 3px;
-    transition: background 0.2s, color 0.2s;
+    font-weight: 900;
+    font-size: clamp(0.78rem, 2.4vw, 0.95rem);
+    letter-spacing: 0.06em;
+    padding: 0.6rem 1.3rem;
+    border-radius: 999px;
+    text-shadow: 0 1.5px 0 #1a1a1a;
+    box-shadow: 0 5px 0 #1a1a1a, 0 8px 14px rgba(0,0,0,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
   }
-  .replay:active { background: #ff7aa8; color: #0e0e12; }
-  @media (hover: hover) { .replay:hover { background: #ff7aa8; color: #0e0e12; } }
+  .replay:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 #1a1a1a, 0 4px 8px rgba(0,0,0,0.35);
+  }
+  @media (hover: hover) {
+    .replay:hover { transform: translateY(-2px); box-shadow: 0 7px 0 #1a1a1a, 0 10px 16px rgba(0,0,0,0.35); }
+  }
   #ytPlayer {
     position: fixed;
     left: -9999px; top: -9999px;
@@ -1622,6 +1692,17 @@
 </div>
 
 <div id="nyc-scene" class="scene hidden">
+  <!-- Cartoon sky clouds -->
+  <div class="cloud c1" aria-hidden="true">
+    <div class="puff"></div><div class="puff"></div><div class="puff"></div>
+  </div>
+  <div class="cloud c2" aria-hidden="true">
+    <div class="puff"></div><div class="puff"></div><div class="puff"></div>
+  </div>
+  <div class="cloud c3" aria-hidden="true">
+    <div class="puff"></div><div class="puff"></div><div class="puff"></div>
+  </div>
+
   <div class="skyline" id="skyline"></div>
   <div class="liberty">
     <div class="torch"></div><div class="flame"></div><div class="crown"></div>
